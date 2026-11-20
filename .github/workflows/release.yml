@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']   # push v0.1.0 這種 tag 時觸發
+
+permissions:
+  contents: write  # 建 Release 需要
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # tag 必須跟 manifest.json 的 version 一致
+      - name: Check version
+        run: |
+          VERSION=$(jq -r .version src/manifest.json)
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "tag $GITHUB_REF_NAME 與 manifest.json 版本 $VERSION 不符"; exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Zip extension
+        run: cd src && zip -r "../hello-extension-$VERSION.zip" .
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: hello-extension-*.zip
+          generate_release_notes: true
