@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Hello Extension",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "最簡單的 Chrome 擴充功能：點圖示打開 popup，計算按鈕點擊次數，並自動檢查新版本。",
   "action": {
     "default_popup": "popup.html"
