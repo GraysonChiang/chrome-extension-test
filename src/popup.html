@@ -5,9 +5,15 @@
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>Hello Extension</h1>
+  <h1>Hello Extension <small id="version"></small></h1>
   <p>已點擊 <strong id="count">0</strong> 次</p>
   <button id="btn" type="button">點我</button>
-  <script src="popup.js"></script>
+
+  <section id="update">
+    <p id="update-status">尚未檢查更新</p>
+    <button id="download" type="button" hidden>下載新版</button>
+    <button id="check" type="button">檢查更新</button>
+  </section>
+  <script type="module" src="popup.js"></script>
 </body>
 </html>
